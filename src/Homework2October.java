@@ -38,7 +38,8 @@ public class Homework2October {
             for (int x = -r; x <= r; x++) {
                 if (Math.pow(y, 2) + Math.pow(x, 2) > Math.pow((r + 0.3), 2) || Math.pow(y, 2) + Math.pow(x, 2) < Math.pow ((r - 0.3), 2)) {
                     // Metodą prób i błędów musiałam trochę przerobić równanie, żeby dostać okrąg, bo "kwadratowe właściwości" konsoli wyświetliły
-                    // trochę za mało elementów, żeby można uznać, że to ładny okrąg, gdy wykorzystywałam w warunku wzór (Math.pow(y, 2) + Math.pow(x, 2) == Math.pow (r, 2))
+                    // trochę za mało elementów, żeby można uznać, że to ładny okrąg, gdy wykorzystywałam w warunku 
+                    // wzór (Math.pow(y, 2) + Math.pow(x, 2) == Math.pow (r, 2))
                     System.out.printf("%3s", "");
                 } else {
                     System.out.printf("%3s", "c");
@@ -63,7 +64,8 @@ public class Homework2October {
 
         for (int y = -r; y <= r; y++) {
             for (int x = -r; x <= r; x++) {
-                if (Math.pow(y, 2) + Math.pow(x, 2) <= Math.pow((r + 0.1), 2)) {   // Dodałam do r 0.1, bo wtedy "kwadratura koła" wygląda lepiej (najpierw próbowałam bez, wyglądało gorzej) ;-)
+                if (Math.pow(y, 2) + Math.pow(x, 2) <= Math.pow((r + 0.1), 2)) {   // Dodałam do r 0.1, bo wtedy "kwadratura koła" wygląda lepiej 
+                                                                                   // (najpierw próbowałam bez, wyglądało gorzej) ;-)
                     System.out.printf("%3s", "c");
                 } else {
                     System.out.printf("%3s", "");
