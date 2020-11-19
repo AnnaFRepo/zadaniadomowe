@@ -13,18 +13,18 @@ public class Homework2October {
 //        module2();
 //        module3();
 //        module4();
-//        module5();
+        module5();
 
     }
 
     private static void module5() {
         ex1mod5();
-        ex2mod5();
-        ex3mod5();
-        ex4mod5();
-        ex5mod5();
-        ex6mod5();
-        ex7mod5();
+//        ex2mod5();
+//        ex3mod5();
+//        ex4mod5();
+//        ex5mod5();
+//        ex6mod5();
+//        ex7mod5();
     }
 
     private static void ex7mod5() {
@@ -36,10 +36,9 @@ public class Homework2October {
     private static void circle2(int r) {
         for (int y = -r; y <= r; y++) {
             for (int x = -r; x <= r; x++) {
-                if (Math.pow(y, 2) + Math.pow(x, 2) > Math.pow((r + 0.3), 2) || Math.pow(y, 2) + Math.pow(x, 2) < Math.pow ((r - 0.3), 2)) {
+                if (Math.pow(y, 2) + Math.pow(x, 2) > Math.pow((r + 0.3), 2) || Math.pow(y, 2) + Math.pow(x, 2) < Math.pow((r - 0.3), 2)) {
                     // Metodą prób i błędów musiałam trochę przerobić równanie, żeby dostać okrąg, bo "kwadratowe właściwości" konsoli wyświetliły
-                    // trochę za mało elementów, żeby można uznać, że to ładny okrąg, gdy wykorzystywałam w warunku 
-                    // wzór (Math.pow(y, 2) + Math.pow(x, 2) == Math.pow (r, 2))
+                    // trochę za mało elementów, żeby można uznać, że to ładny okrąg, gdy wykorzystywałam w warunku wzór (Math.pow(y, 2) + Math.pow(x, 2) == Math.pow (r, 2))
                     System.out.printf("%3s", "");
                 } else {
                     System.out.printf("%3s", "c");
@@ -64,8 +63,7 @@ public class Homework2October {
 
         for (int y = -r; y <= r; y++) {
             for (int x = -r; x <= r; x++) {
-                if (Math.pow(y, 2) + Math.pow(x, 2) <= Math.pow((r + 0.1), 2)) {   // Dodałam do r 0.1, bo wtedy "kwadratura koła" wygląda lepiej 
-                                                                                   // (najpierw próbowałam bez, wyglądało gorzej) ;-)
+                if (Math.pow(y, 2) + Math.pow(x, 2) <= Math.pow((r + 0.1), 2)) {   // Dodałam do r 0.1, bo wtedy "kwadratura koła" wygląda lepiej (najpierw próbowałam bez, wyglądało gorzej) ;-)
                     System.out.printf("%3s", "c");
                 } else {
                     System.out.printf("%3s", "");
@@ -134,7 +132,8 @@ public class Homework2October {
     private static int factorialRecur(int n) {
         if (n == 0) {
             return 0;
-        } if (n == 1) {
+        }
+        if (n == 1) {
             return 1;
         }
         return n * factorialRecur(n - 1);
@@ -159,8 +158,32 @@ public class Homework2October {
 //        elementów, zawierającą kolejne liczby naturalne
 
         int n = 5;
-        create3DTable(n);
+//        create3DTable(n);
+        create3DTable2(n);
+    }
 
+    private static void create3DTable2(int n) {
+        int[][][] table3D = new int[n][n][n];
+        int counter = 0;
+
+        for (int i = 0; i < table3D.length; i++) {
+            for (int j = 0; j < table3D[i].length; j++) {
+                for (int k = 0; k < table3D[i][j].length; k++) {
+                    table3D[i][j][k] = k + j * n + i * n * n;
+                }
+            }
+        }
+        System.out.println("Tablica trójwymiarowa o wymiarach liczących " + n + " elementów:");
+        for (int[][] table2D : table3D) {
+            for (int[] table1D : table2D) {
+                for (int number : table1D) {
+                    System.out.printf("%3s", number);
+                    System.out.print(", ");
+                }
+                System.out.println();
+            }
+            System.out.println("------------------------");
+        }
     }
 
     private static void create3DTable(int n) {
