@@ -164,7 +164,6 @@ public class Homework2October {
 
     private static void create3DTable2(int n) {
         int[][][] table3D = new int[n][n][n];
-        int counter = 0;
 
         for (int i = 0; i < table3D.length; i++) {
             for (int j = 0; j < table3D[i].length; j++) {
