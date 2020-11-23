@@ -1,4 +1,8 @@
+import javafx.css.Match;
+
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Homework2October {
 
@@ -13,18 +17,132 @@ public class Homework2October {
 //        module2();
 //        module3();
 //        module4();
-        module5();
+//        module5();
+        module6();
 
+    }
+
+    private static void module6() {
+//        ex1mod6();
+        ex2mod6();
+    }
+
+    private static void ex2mod6() {
+//        2. Napisać parser, gdzie użytkownik wpisuje 1 ciąg znaków odpowiadający wyrażeniu
+//        matematycznemu, a program liczy jego wartość uwzględniając kolejność
+//        wykonywania działań arytmetycznych.
+
+
+    }
+
+    private static void ex1mod6() {
+//        1. Stworzyć program w którym stworzysz potrzebną ilość metod
+//        Ich zadaniem będzie:
+//        a) przyjęcie zdania (długie ze spacjami) oraz zwrócenie tablicy Stringów, w
+//        którym każdy element będzie oddzielnym wyrazem.
+//        b) zmodyfikuj metodę tak aby w zależności od trybu wywołania elementy były
+//        posortowane alfabetycznie albo po długości znaków.
+//        c) dodaj jeszcze jeden tryb pozwalający na wyświetlanie elementów tablicy w
+//        kolejności odwrotnie - alfabetycznej. W każdym wyrazie występują na zmianę
+//        małe i duże litery.
+
+        System.out.println(Arrays.toString(
+                sentenceToArray()
+        ));
+    }
+
+    private static String[] sentenceToArray() {
+
+        String[] result = null;
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Proszę wpisać długie zdanie:");
+        String sentence = scanner.nextLine();
+        List<String> sentenceAsArray = new ArrayList<>();
+        Pattern pat = Pattern.compile("[\\p{L}]+");
+        Matcher mat = pat.matcher(sentence);
+        while (mat.find()) {
+            sentenceAsArray.add(mat.group());
+        }
+
+        printInfo();
+        int userChoice = scanner.nextInt();
+
+            switch (userChoice) {
+                case 1:
+                    result = returnSentenceAsArray(sentenceAsArray);
+                    break;
+                case 2:
+                    result = arraySortedAZ(sentenceAsArray);
+                    break;
+                case 3:
+                    result = arraySortedByWordsLenght(sentenceAsArray);
+                    break;
+                case 4:
+                    result = arraySortedZAChangedCaseLetter(sentenceAsArray);
+                    break;
+            }
+        return result;
+    }
+
+    private static void printInfo() {
+        System.out.println("Proszę wybrać opcję wyświetlenia tablicy:");
+        System.out.println("1 - Elementy tablicy w kolejności wprowadzania");
+        System.out.println("2 - Elementy tablicy posortowane alfabetycznie");
+        System.out.println("3 - Elementy tablicy posortowane po długości znaków");
+        System.out.println("4 - Elementy tablicy w kolejności odwrotnie - alfabetycznej. W każdym wyrazie  na zmianę małe i duże litery");
+    }
+
+    private static String[] arraySortedZAChangedCaseLetter(List<String> sentenceAsArray) {
+
+        String[] result = new String[sentenceAsArray.size()];
+
+        for (int j = 0; j < sentenceAsArray.size(); j++) {
+            String tempString = sentenceAsArray.get(j);
+            char[] tempCharArray = tempString.toCharArray();
+            tempString = String.valueOf(tempCharArray[0]);
+            for (int i = 1; i < tempCharArray.length; i++) {
+                if (tempCharArray[i - 1] != Character.toUpperCase(tempCharArray[i - 1])) {
+                    tempCharArray[i] = Character.toUpperCase(tempCharArray[i]);
+                    tempString += tempCharArray[i];
+                } else {
+                    tempCharArray[i] = Character.toLowerCase(tempCharArray[i]);
+                    tempString += tempCharArray[i];
+                }
+            }
+            result[j] = tempString;
+        }
+        Arrays.sort(result);
+        Collections.reverse(Arrays.asList(result));
+
+        return result;
+    }
+
+    private static String[] arraySortedByWordsLenght(List<String> sentenceAsArray) {
+        sentenceAsArray.sort((a, b) -> (a.length() > b.length() ? 1 : a.length() < b.length() ? -1 : 0));
+//        sentenceAsArray.sort((a, b) -> (Integer.compare(a.length(), b.length())));    --> To samo, co powyżej
+//        sentenceAsArray.sort(Comparator.comparingInt(String::length));    --> To samo, co powyżej
+
+        return sentenceAsArray.toArray(new String[0]);
+    }
+
+    private static String[] arraySortedAZ(List<String> sentenceAsArray) {
+        sentenceAsArray.sort(String::compareTo);
+        return sentenceAsArray.toArray(new String[0]);
+    }
+
+    private static String[] returnSentenceAsArray(List<String> sentenceAsArray) {
+        return sentenceAsArray.toArray(new String[0]);
     }
 
     private static void module5() {
         ex1mod5();
-//        ex2mod5();
-//        ex3mod5();
-//        ex4mod5();
-//        ex5mod5();
-//        ex6mod5();
-//        ex7mod5();
+        ex2mod5();
+        ex3mod5();
+        ex4mod5();
+        ex5mod5();
+        ex6mod5();
+        ex7mod5();
     }
 
     private static void ex7mod5() {
