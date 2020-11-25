@@ -1,5 +1,3 @@
-import javafx.css.Match;
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +30,129 @@ public class Homework2October {
 //        matematycznemu, a program liczy jego wartość uwzględniając kolejność
 //        wykonywania działań arytmetycznych.
 
+        String infixExpression = receiveMathOperation();
+        String postfixExpression = infixToPostfix(infixExpression);
+        double result = calculatePostfixExpression(postfixExpression);
+        showResults(postfixExpression, result);
+    }
 
+    private static void showResults(String postfixExpression, double result) {
+        System.out.println("Wprowadzone wyrażenie zamienione do wersji postfiksowej to:");
+        System.out.println(postfixExpression);
+        System.out.println("Wynik podanego działania matematycznego wynosi:");
+        System.out.printf("%.6f", result);
+        System.out.println();
+    }
+
+    private static double calculatePostfixExpression(String postfixExpression) {
+
+        Stack<Double> st = new Stack<>();
+        StringTokenizer tokenizer = new StringTokenizer(postfixExpression, " ");
+
+        while (tokenizer.hasMoreTokens()) {
+            String nextElement = tokenizer.nextToken();
+
+            if (!nextElement.equals("+") && !nextElement.equals("*") && !nextElement.equals("-") && !nextElement.equals("/")) {
+                double value = Double.parseDouble(nextElement);
+                st.push(value);
+            } else {
+                double value1 = st.pop();
+                double value2 = st.pop();
+                switch (nextElement.charAt(0)) {
+                    case '*':
+                        st.push(value2 * value1);
+                        break;
+                    case '+':
+                        st.push(value2 + value1);
+                        break;
+                    case '-':
+                        st.push(value2 - value1);
+                        break;
+                    case '/':
+                        if (value1 != 0) {
+                            st.push(value2 / value1);
+                        } else {
+                            System.out.println("Nie dzielimy przez O, łosiu!");
+                            System.exit(-2);
+                        }
+                        break;
+                }
+            }
+        }
+        return st.pop();
+    }
+
+    private static String infixToPostfix(String infixExpression) {
+        StringBuilder postfixExpression = new StringBuilder();
+        Stack<String> st = new Stack<>();
+        StringTokenizer tokenizer = new StringTokenizer(infixExpression, "+-*/()", true);
+
+        while (tokenizer.hasMoreTokens()) {
+            String nextElement = tokenizer.nextToken();
+
+            switch (nextElement) {
+                case "+":
+                case "*":
+                case "-":
+                case "/":
+                    while (!st.empty() && checkSignPriority(st.peek()) >= checkSignPriority(nextElement)) {
+                        postfixExpression.append(st.pop()).append(" ");
+                    }
+                    st.push(nextElement);
+                    break;
+                case "(":
+                    st.push(nextElement);
+                    break;
+                case ")":
+                    while (!st.peek().equals("(")) {
+                        postfixExpression.append(st.pop()).append(" ");
+                    }
+                    st.pop();
+                    break;
+                default:
+                    postfixExpression.append(nextElement).append(" ");
+                    break;
+            }
+        }
+
+        while (!st.empty()) {
+            postfixExpression.append(st.pop()).append(" ");
+        }
+
+        return postfixExpression.toString();
+    }
+
+    private static int checkSignPriority(String sign) {
+
+        if (sign.equals("+") || sign.equals("-")) {
+            return 1;
+        } else if (sign.equals("*") || sign.equals("/")) {
+            return 2;
+        } else return 0;
+    }
+
+    private static String receiveMathOperation() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Proszę wpisać działanie matematyczne do obliczenia:");
+        String input = scanner.nextLine();
+        input = input.replace(" ", "");
+        if (input.contains(",")) {
+            input = input.replace(",", ".");
+        }
+        if (input.contains("=")) {
+            input = input.replace("=", "");
+        }
+
+        System.out.println("Wprowadzone wyrażenie:");
+        System.out.println(input);
+
+        if (input.equals("")) {
+            System.out.println("Nie wpisano żadnych danych!");
+            receiveMathOperation();
+        }
+
+        return input;
     }
 
     private static void ex1mod6() {
@@ -68,20 +188,20 @@ public class Homework2October {
         printInfo();
         int userChoice = scanner.nextInt();
 
-            switch (userChoice) {
-                case 1:
-                    result = returnSentenceAsArray(sentenceAsArray);
-                    break;
-                case 2:
-                    result = arraySortedAZ(sentenceAsArray);
-                    break;
-                case 3:
-                    result = arraySortedByWordsLenght(sentenceAsArray);
-                    break;
-                case 4:
-                    result = arraySortedZAChangedCaseLetter(sentenceAsArray);
-                    break;
-            }
+        switch (userChoice) {
+            case 1:
+                result = returnSentenceAsArray(sentenceAsArray);
+                break;
+            case 2:
+                result = arraySortedAZ(sentenceAsArray);
+                break;
+            case 3:
+                result = arraySortedByWordsLenght(sentenceAsArray);
+                break;
+            case 4:
+                result = arraySortedZAChangedCaseLetter(sentenceAsArray);
+                break;
+        }
         return result;
     }
 
