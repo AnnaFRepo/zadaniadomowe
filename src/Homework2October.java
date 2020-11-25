@@ -67,17 +67,17 @@ public class Homework2October {
             } else {
                 double value1 = stack.removeLast();
                 double value2 = stack.removeLast();
-                switch (nextElement.charAt(0)) {
-                    case '*':
-                        stack.offerLast(value2 * value1);
-                        break;
-                    case '+':
+                switch (String.valueOf(nextElement.charAt(0))) {
+                    case ADDITION:
                         stack.offerLast(value2 + value1);
                         break;
-                    case '-':
+                    case MULTIPLICATION:
+                        stack.offerLast(value2 * value1);
+                        break;
+                    case SUBTRACTION:
                         stack.offerLast(value2 - value1);
                         break;
-                    case '/':
+                    case DIVISION:
                         if (value1 != 0) {
                             stack.offerLast(value2 / value1);
                         } else {
