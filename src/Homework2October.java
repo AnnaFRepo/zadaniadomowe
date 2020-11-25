@@ -8,6 +8,12 @@ public class Homework2October {
     private static final String EXIT = "exit";
     private static final String REVERSE = "reverse";
     private static final String SHOW = "show";
+    private static final String ADDITION = "+";
+    private static final String SUBTRACTION = "-";
+    private static final String MULTIPLICATION = "*";
+    private static final String DIVISION = "/";
+    private static final String OPENING_BRACKET = "(";
+    private static final String CLOSING_BRACKET = ")";
 
     public static void main(String[] args) {
 
@@ -46,31 +52,34 @@ public class Homework2October {
 
     private static double calculatePostfixExpression(String postfixExpression) {
 
-        Stack<Double> st = new Stack<>();
+        Deque<Double> stack = new ArrayDeque<>();
         StringTokenizer tokenizer = new StringTokenizer(postfixExpression, " ");
 
         while (tokenizer.hasMoreTokens()) {
             String nextElement = tokenizer.nextToken();
 
-            if (!nextElement.equals("+") && !nextElement.equals("*") && !nextElement.equals("-") && !nextElement.equals("/")) {
+            if (!ADDITION.equals(nextElement) &&
+                    !MULTIPLICATION.equals(nextElement) &&
+                    !SUBTRACTION.equals(nextElement) &&
+                    !DIVISION.equals(nextElement)) {
                 double value = Double.parseDouble(nextElement);
-                st.push(value);
+                stack.offerLast(value);
             } else {
-                double value1 = st.pop();
-                double value2 = st.pop();
+                double value1 = stack.removeLast();
+                double value2 = stack.removeLast();
                 switch (nextElement.charAt(0)) {
                     case '*':
-                        st.push(value2 * value1);
+                        stack.offerLast(value2 * value1);
                         break;
                     case '+':
-                        st.push(value2 + value1);
+                        stack.offerLast(value2 + value1);
                         break;
                     case '-':
-                        st.push(value2 - value1);
+                        stack.offerLast(value2 - value1);
                         break;
                     case '/':
                         if (value1 != 0) {
-                            st.push(value2 / value1);
+                            stack.offerLast(value2 / value1);
                         } else {
                             System.out.println("Nie dzielimy przez O, łosiu!");
                             System.exit(-2);
@@ -79,35 +88,35 @@ public class Homework2October {
                 }
             }
         }
-        return st.pop();
+        return stack.removeLast();
     }
 
     private static String infixToPostfix(String infixExpression) {
         StringBuilder postfixExpression = new StringBuilder();
-        Stack<String> st = new Stack<>();
+        Deque<String> stack = new ArrayDeque<>();
         StringTokenizer tokenizer = new StringTokenizer(infixExpression, "+-*/()", true);
 
         while (tokenizer.hasMoreTokens()) {
             String nextElement = tokenizer.nextToken();
 
             switch (nextElement) {
-                case "+":
-                case "*":
-                case "-":
-                case "/":
-                    while (!st.empty() && checkSignPriority(st.peek()) >= checkSignPriority(nextElement)) {
-                        postfixExpression.append(st.pop()).append(" ");
+                case ADDITION:
+                case MULTIPLICATION:
+                case SUBTRACTION:
+                case DIVISION:
+                    while (!stack.isEmpty() && signPriority(stack.getLast()) >= signPriority(nextElement)) {
+                        postfixExpression.append(stack.removeLast()).append(" ");
                     }
-                    st.push(nextElement);
+                    stack.offerLast(nextElement);
                     break;
-                case "(":
-                    st.push(nextElement);
+                case OPENING_BRACKET:
+                    stack.offerLast(nextElement);
                     break;
-                case ")":
-                    while (!st.peek().equals("(")) {
-                        postfixExpression.append(st.pop()).append(" ");
+                case CLOSING_BRACKET:
+                    while (!OPENING_BRACKET.equals(stack.getLast()))  {
+                        postfixExpression.append(stack.removeLast()).append(" ");
                     }
-                    st.pop();
+                    stack.removeLast();
                     break;
                 default:
                     postfixExpression.append(nextElement).append(" ");
@@ -115,18 +124,18 @@ public class Homework2October {
             }
         }
 
-        while (!st.empty()) {
-            postfixExpression.append(st.pop()).append(" ");
+        while (!stack.isEmpty()) {
+            postfixExpression.append(stack.removeLast()).append(" ");
         }
 
         return postfixExpression.toString();
     }
 
-    private static int checkSignPriority(String sign) {
+    private static int signPriority(String sign) {
 
-        if (sign.equals("+") || sign.equals("-")) {
+        if (ADDITION.equals(sign) || SUBTRACTION.equals(sign)) {
             return 1;
-        } else if (sign.equals("*") || sign.equals("/")) {
+        } else if (MULTIPLICATION.equals(sign) || DIVISION.equals(sign)) {
             return 2;
         } else return 0;
     }
@@ -147,7 +156,7 @@ public class Homework2October {
         System.out.println("Wprowadzone wyrażenie:");
         System.out.println(input);
 
-        if (input.equals("")) {
+        if (input.isEmpty()) {
             System.out.println("Nie wpisano żadnych danych!");
             receiveMathOperation();
         }
@@ -917,7 +926,9 @@ public class Homework2October {
 //        Dla chętnych: choinka powinna posiadać pieniek oraz gwiazdkę o znaku @. Pieniek
 //        nie wlicza się w wysokość choinki
 
-        int n = 10;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj wysokość choinki:");
+        int n = scanner.nextInt();
         christmasTreeDraft1(n);
         christmasTreeDraft2(n);
     }
