@@ -29,8 +29,8 @@ public class HomeworkWeekend2 {
 //    Następnie stwórz metodę showSize, która przyjmować będzie argument będący
 //    enumem. Zwróć komunikat o rozmiarze.
 
-        for (Size size : Size.values()) {
-            Size.showSize(size);
+        for (SizeEnum size : SizeEnum.values()) {
+            SizeEnum.showSize(size);
         }
     }
 
