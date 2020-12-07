@@ -21,8 +21,8 @@ public class Game {
     private static final String INFO_TOO_SMALL = "Podana liczba jest za mała! ";
     private static final String INFO_TOO_MUCH = "Podana liczba jest za duża! ";
     private static final String INFO_GUESS_AGAIN = "Spróbuj zgadnąć jeszcze raz! Pozostała ilość prób: %d";
-    private static final String INFO_WIN = "WYGRANA! Brawo! TAK, wlosowana liczba to %d";
-    private static final String INFO_LOST = "Przegrana... Spróbuj ponownie!\nWylosowana liczba to: ";
+    private static final String INFO_WIN = "WYGRANA! Brawo! TAK, wylosowana liczba to %d";
+    private static final String INFO_LOST = "Przegrana... Spróbuj ponownie!\nWylosowana liczba to %d";
     private static final String INFO_WRONG_INPUT = "Nie podano liczby lub podano niewłaściwą liczbę, podaj liczbę ponownie:";
     private static final String INFO_OUT_OF_RANGE = "Podano niewłaściwą liczbę - spoza wylosowanego zakresu, podaj liczbę ponownie:";
     private static final int ATTEMPTS = 12;
@@ -36,7 +36,7 @@ public class Game {
         this.lowerRange = secureRandom.nextInt(51);
         this.highRange = 500 + secureRandom.nextInt(501);
         this.drawnNumber = lowerRange + secureRandom.nextInt(highRange - lowerRange);
-        System.out.printf("Wylosowana została liczba z zakresu od %d do %d\n", lowerRange, highRange);
+        System.out.printf("Wylosowana została liczba z zakresu od %d do %d", lowerRange, highRange).println();
     }
 
     public static void play() throws IOException {
