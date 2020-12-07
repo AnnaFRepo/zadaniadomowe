@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class HomeworkWeekend2 {
@@ -12,15 +13,60 @@ public class HomeworkWeekend2 {
 
     public static void main(String[] args) {
 
-        module1();
+//        module1();
+        module2();
+    }
+
+    private static void module2() {
+//        ex1mod2();
+//        ex2mod2();
+    }
+
+    private static void ex2mod2() {
+//        2. Stwórz tablicę 5 liczb zmiennoprzecinkowych. Napisz taką pętle, w której każdy
+//        kolejny element będzie miał o jedno miejsce po przecinku mniej.
+
+        double[] numbers = new double[5];
+        SecureRandom secureRandom = new SecureRandom();
+        double number = secureRandom.nextDouble();
+        String numberAsString = String.valueOf(number);
+        int newDecimalLenght = numberAsString.length() - 1;
+
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = number;
+            numberAsString = numberAsString.substring(0, newDecimalLenght--);
+            number = Double.parseDouble(numberAsString);
+        }
+        System.out.println(Arrays.toString(numbers));
+    }
+
+    private static void ex1mod2() {
+//        1. Stwórz metodę o nazwie validateData(). Przeciąż ją w ten sposób, aby mogła
+//        pracować z zadanym parametrem isPriority. Wewnątrz wyświetl informację: I am
+//        validating. Jeśli parametr jest zadany to wyświetl dodatkowo adnotację: This
+//        operation is very important. Staraj się nie duplikować kodu w żadnym miejscu.
+
+        validateData();
+        validateData(true);
+        validateData(false);
+    }
+
+    private static void validateData() {
+        System.out.println("I am validating");
+    }
+
+    private static void validateData(boolean isPriority) {
+        validateData();
+        if (isPriority) {
+            System.out.println("This operation is very important");
+        }
     }
 
     private static void module1() {
-//        ex1mod1();
-//        ex2mod1();
-//        ex3mod1();
+        ex1mod1();
+        ex2mod1();
+        ex3mod1();
         ex6mod1();
-
     }
 
     private static void ex6mod1() {
@@ -105,7 +151,6 @@ public class HomeworkWeekend2 {
     }
 
     private static void ex1mod1() {
-
 //    1. Przepisz następującą pętle for na pętle foreach:
 //            for(int i=0;i<array.length;i++){
 //        System.out.println(array[i]);
@@ -129,7 +174,6 @@ public class HomeworkWeekend2 {
         }
         System.out.println(counter);
     }
-
 }
 
 enum AnswerEnum {
